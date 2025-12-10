@@ -6,7 +6,7 @@
 /*   By: asezgin <asezgin@student.42kocaeli.com.tr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:46:13 by asezgin           #+#    #+#             */
-/*   Updated: 2025/12/10 11:46:14 by asezgin          ###   ########.fr       */
+/*   Updated: 2025/12/10 12:34:31 by asezgin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 int	close_window(t_all *all)
 {
+    mlx_destroy_image(all->mlx.mlx, all->mlx.img.img);
 	mlx_destroy_window(all->mlx.mlx, all->mlx.mlx_win);
 	mlx_destroy_display(all->mlx.mlx);
-
+    free(all->mlx.mlx);
+    clean_collector(all);
     exit(0);
 }
 
