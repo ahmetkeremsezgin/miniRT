@@ -10,7 +10,7 @@
 #define HEIGHT 1080
 #define WIDTH 1920
 #define M_PI 3.14159265358979323846
-#define SHARPNESS 50.0
+#define SHARPNESS 100.0
 
 
 #define OBJ_NONE 0
@@ -145,8 +145,8 @@ void	init_sphere(char **args, t_all *all);
 void    init_coord(t_vec *vec, char *value, t_all *all);
 void    init_vector(t_vec *vec, char *value, t_all *all);
 int		ft_atoi(char *str, char type, t_all *all);
-void    check_float_number(float number, char type, t_all *all);
-
+void    check_float_number(float number, char type, t_all *all);  
+void    visualize(t_all *all);
 int trace_ray(t_all *all, t_ray *ray);
 double hit_sphere(t_sphere *sp, t_ray *ray);
 double hit_plane(t_plane *pl, t_ray *ray);

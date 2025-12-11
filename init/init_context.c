@@ -17,54 +17,39 @@
 void setup_camera(t_all *all)
 {
     t_camera *cam = all->camera;
-    
-    // 1. Viewport (Sanal Ekran) Boyutlarını Hesapla
-    // FOV derece cinsinden gelir, radyana çevirip tanjantını alırız.
+    // 1. FOV'dan viewport boyutlarını hesapla
     double theta = (cam->fov * M_PI) / 180.0;
     double h = tan(theta / 2.0);
-    
     double viewport_height = 2.0 * h;
     double viewport_width = viewport_height * ((double)WIDTH / (double)HEIGHT);
-
-    // 2. Kamera Eksenlerini Hesapla (Basis Vectors)
-    // w: Kameranın baktığı yönün tersi (Bize doğru gelen eksen)
-    // u: Kameranın sağı
-    // v: Kameranın yukarısı
-    t_vec w = vec_norm(vec_mul(cam->dir, -1)); // Kameranın tersi
-    t_vec up_guide = {0, 1, 0}; // Dünyanın "yukarısı"
     
-    // Eğer kamera tam tepeye veya tam alta bakıyorsa cross product bozulur.
-    // Basit bir koruma (gerekirse detaylandırılır):
+    // 2. Kamera koordinat sistemini oluştur
+    t_vec w = vec_norm(vec_mul(cam->dir, -1));
+    t_vec up_guide = {0, 1, 0};
     if (fabs(w.y) > 0.999) 
-        up_guide = (t_vec){0, 0, 1}; // Alternatif yukarı
-
-    t_vec u = vec_norm(vec_cross(up_guide, w)); // Sağı bulduk
-    t_vec v = vec_cross(w, u); // Gerçek "yukarıyı" bulduk
+        up_guide = (t_vec){0, 0, 1};
+    t_vec u = vec_norm(vec_cross(up_guide, w));
+    t_vec v = vec_cross(w, u);
 
     // 3. Viewport Vektörlerini Oluştur
-    cam->viewport_u = vec_mul(u, viewport_width);   // Ekranın toplam genişlik vektörü
-    cam->viewport_v = vec_mul(v, -viewport_height); // Ekranın toplam yükseklik vektörü (Y aşağı artar genelde)
-
-    // 4. Piksel Adımlarını Hesapla (Delta)
+    cam->viewport_u = vec_mul(u, viewport_width);
+    cam->viewport_v = vec_mul(v, -viewport_height);
+    // 4. Delta hesaplama
     cam->pixel_delta_u = vec_mul(cam->viewport_u, 1.0 / WIDTH);
     cam->pixel_delta_v = vec_mul(cam->viewport_v, 1.0 / HEIGHT);
 
-    // 5. Sol Üst Köşeyi (Upper Left) Bul
-    // Formül: Origin - (w * focal_length) - (viewport_u / 2) - (viewport_v / 2)
-    // Focal length'i şimdilik 1.0 kabul ediyoruz.
-    
-    t_vec viewport_center = vec_sub(cam->origin, w); // Ekranın ortası
+    // 5. Sol Üst Köşeyi (Upper Left) Bul    
+    t_vec viewport_center = vec_sub(cam->origin, w);
     t_vec half_u = vec_mul(cam->viewport_u, 0.5);
     t_vec half_v = vec_mul(cam->viewport_v, 0.5);
     
     cam->upper_left = vec_sub(viewport_center, half_u);
     cam->upper_left = vec_sub(cam->upper_left, half_v);
     
-    // İnce ayar: İlk pikselin tam ortasına odaklanmak için yarım delta eklenir (Opsiyonel ama iyi olur)
     t_vec half_pixel = vec_add(vec_mul(cam->pixel_delta_u, 0.5), vec_mul(cam->pixel_delta_v, 0.5));
     cam->upper_left = vec_add(cam->upper_left, half_pixel);
     
-    printf("Kamera kuruldu! Sol ust kose: %f, %f, %f\n", cam->upper_left.x, cam->upper_left.y, cam->upper_left.z);
+    printf("Camera setup completed.\n");
 }
 
 void	init_rgb(int *rgb, char *value, t_all *all)

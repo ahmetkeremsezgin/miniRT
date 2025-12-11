@@ -5,21 +5,21 @@ CFLAGS = -Wall -Wextra -Werror
 CC = cc
 
 SRCS =  ./init/check.c \
-        ./math/vector.c \
-        ./render/raytrace.c \
-        ./hit/sphere.c \
-        ./hit/plane.c \
-        ./hit/cylinder.c \
-        ./utils/collector.c \
-        ./utils/ft_split.c \
-        ./get_next_line/get_next_line.c \
-        ./get_next_line/get_next_line_utils.c \
-        ./init/init_context.c \
-        ./init/init_object.c \
-        ./utils/print_struct.c \
-        ./utils/utils.c \
-        ./mlx_utils/init.c \
-        ./main.c \
+	./math/vector.c \
+	./render/raytrace.c \
+	./hit/sphere.c \
+	./hit/plane.c \
+	./hit/cylinder.c \
+	./utils/collector.c \
+	./utils/ft_split.c \
+	./get_next_line/get_next_line.c \
+	./get_next_line/get_next_line_utils.c \
+	./init/init_context.c \
+	./init/init_object.c \
+	./utils/print_struct.c \
+	./utils/utils.c \
+	./mlx_utils/init.c \
+	./main.c \
 
 OBJ_DIR = obj
 
@@ -47,6 +47,9 @@ $(NAME): $(MLX_LIB) $(OBJS)
 clean: 
 	rm -rf $(OBJ_DIR)
 	make -C $(MLX_PATH) clean
+
+norm :
+	norminette $(SRCS) ./includes/mini_rt.h
 
 fclean: clean
 	rm -rf $(NAME)
