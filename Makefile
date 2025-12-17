@@ -3,7 +3,6 @@ NAME        = miniRT
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -O3
 
-# Kaynak dosyalar
 SRCS        = ./init/check.c \
               ./math/vector.c \
               ./render/trace.c \
