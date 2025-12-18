@@ -22,6 +22,7 @@ int	setup_arg(char *filename, t_all *all)
 	int		fd;
 	char	*line;
 	char	**args;
+	int		i;
 
 	fd = open(filename, O_RDONLY);
 	while (1)
@@ -29,7 +30,11 @@ int	setup_arg(char *filename, t_all *all)
 		line = get_next_line(fd);
 		if (line == NULL)
 			return (1);
-		if (line[0] == '\n')
+		i = 0;
+		while (line[i] && (line[i] == ' '
+				|| line[i] == '\t' || line[i] == '\n'))
+			i++;
+		if (line[i] == '\0' || line[i] == '#')
 		{
 			free(line);
 			continue ;

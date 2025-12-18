@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asezgin <asezgin@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*   By: asezgin <asezgin@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 13:34:03 by asezgin           #+#    #+#             */
-/*   Updated: 2025/12/17 13:49:10 by asezgin          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:36:10 by asezgin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	trace_ray(t_all *all, t_ray *ray)
 	t_vec	normal;
 	int		color;
 
+	color = 0x000000;
 	rec.t = 1.0 / 0.0;
 	rec.type = OBJ_NONE;
 	rec.obj = NULL;

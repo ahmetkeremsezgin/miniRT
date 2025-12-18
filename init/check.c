@@ -28,7 +28,8 @@ void	file_check(int ac, char **av)
 		exit(1);
 	}
 	len = ft_strlen(av[1]);
-	if (av[1][len -1] != 't' && av[1][len - 2] != 'r' && av[1][len - 3] != '.')
+	if (len < 4 || av[1][len - 1] != 't'
+			|| av[1][len - 2] != 'r' || av[1][len - 3] != '.')
 	{
 		printf("Error: Wrong file name\n");
 		exit(1);
@@ -36,10 +37,10 @@ void	file_check(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 	{
-		close(fd);
 		printf("Error: Cannot open file\n");
 		exit(1);
 	}
+	close(fd);
 }
 
 void	check_number(int number, char type, t_all *all)

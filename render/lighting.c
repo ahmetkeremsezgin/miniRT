@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asezgin <asezgin@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*   By: asezgin <asezgin@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 13:32:57 by asezgin           #+#    #+#             */
-/*   Updated: 2025/12/17 13:48:32 by asezgin          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:35:50 by asezgin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	compute_lighting(t_all *all, t_vec hit, t_vec normal, int color)
 		if (!is_in_shadow(all, hit, l_dir, l_dist))
 		{
 			intensity += all->light->brightness * dot;
-			intensity += all->light->brightness * \
-				calc_specular(normal, l_dir, all->camera->cam_view_dir, dot);
+			intensity += all->light->brightness * calc_specular(normal,
+					l_dir, all->camera->cam_view_dir, dot);
 		}
 	}
 	return (calculate_pixel_color(color, intensity));

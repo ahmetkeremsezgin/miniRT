@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asezgin <asezgin@student.42kocaeli.com.tr> +#+  +:+       +#+        */
+/*   By: asezgin <asezgin@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:15:03 by asezgin           #+#    #+#             */
-/*   Updated: 2025/12/17 14:40:32 by asezgin          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:33:58 by asezgin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ double	hit_cylinder(t_cylinder *cy, t_ray *ray)
 
 	calc_coeffs(cy, ray, abc);
 	if (fabs(abc[0]) < 1e-6)
-		return(-1.0);
+		return (-1.0);
 	disc = abc[1] * abc[1] - 4 * abc[0] * abc[2];
 	if (disc < 0)
 		return (-1.0);
