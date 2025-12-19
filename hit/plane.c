@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../mini_rt.h"
+#include <math.h>
 
 double	hit_plane(t_plane *pl, t_ray *ray)
 {

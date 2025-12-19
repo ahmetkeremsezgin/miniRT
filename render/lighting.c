@@ -3,52 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asezgin <asezgin@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: asezgin <asezgin@student.42kocaeli.com.tr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 13:32:57 by asezgin           #+#    #+#             */
-/*   Updated: 2025/12/18 14:35:50 by asezgin          ###   ########.fr       */
+/*   Updated: 2025/12/17 13:48:32 by asezgin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_rt.h"
+#include <math.h>
 
-static double	calc_specular(t_vec normal, t_vec l_dir, t_vec view, double dot)
+int	combine_light_obj(int obj_color, int amb_rgb, double diff)
 {
-	t_vec	reflect_dir;
-	t_vec	v_mul;
-	double	spec_dot;
-	double	shininess;
+	int	rgb[3];
+	int	amb[3];
 
-	shininess = SHARPNESS;
-	v_mul = vec_mul(normal, 2.0 * dot);
-	reflect_dir = vec_sub(v_mul, l_dir);
-	reflect_dir = vec_norm(reflect_dir);
-	spec_dot = vec_dot(reflect_dir, view);
-	if (spec_dot > 0)
-		return (pow(spec_dot, shininess));
-	return (0.0);
+	rgb[0] = (obj_color >> 16) & 0xFF;
+	rgb[1] = (obj_color >> 8) & 0xFF;
+	rgb[2] = obj_color & 0xFF;
+	amb[0] = (amb_rgb >> 16) & 0xFF;
+	amb[1] = (amb_rgb >> 8) & 0xFF;
+	amb[2] = amb_rgb & 0xFF;
+	rgb[0] = clamp((int)(rgb[0] * ((double)amb[0] / 255.0 + diff)));
+	rgb[1] = clamp((int)(rgb[1] * ((double)amb[1] / 255.0 + diff)));
+	rgb[2] = clamp((int)(rgb[2] * ((double)amb[2] / 255.0 + diff)));
+	return (create_trgb(0, rgb[0], rgb[1], rgb[2]));
 }
 
-int	compute_lighting(t_all *all, t_vec hit, t_vec normal, int color)
+int	compute_lighting(t_all *all, t_vec hit, t_vec normal, int obj_color)
 {
 	t_vec	l_dir;
 	double	l_dist;
-	double	intensity;
 	double	dot;
+	double	diff;
+	int		amb;
 
-	intensity = all->ambient->ratio;
-	l_dist = sqrt(vec_dot(vec_sub(all->light->center, hit),
-				vec_sub(all->light->center, hit)));
-	l_dir = vec_norm(vec_sub(all->light->center, hit));
+	amb = calculate_pixel_color(all->ambient->color, all->ambient->ratio);
+	l_dir = vec_sub(all->light->center, hit);
+	l_dist = sqrt(vec_dot(l_dir, l_dir));
+	l_dir = vec_norm(l_dir);
 	dot = vec_dot(normal, l_dir);
-	if (dot > 0)
-	{
-		if (!is_in_shadow(all, hit, l_dir, l_dist))
-		{
-			intensity += all->light->brightness * dot;
-			intensity += all->light->brightness * calc_specular(normal,
-					l_dir, all->camera->cam_view_dir, dot);
-		}
-	}
-	return (calculate_pixel_color(color, intensity));
+	diff = 0;
+	if (dot > 0 && !is_in_shadow(all, hit, l_dir, l_dist))
+		diff = all->light->brightness * dot;
+	return (combine_light_obj(obj_color, amb, diff));
 }

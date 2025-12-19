@@ -1,7 +1,7 @@
 NAME        = miniRT
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -O3
+CFLAGS      = -Wall -Wextra -Werror
 
 SRCS        = ./init/check.c \
               ./math/vector.c \

@@ -12,10 +12,6 @@
 #ifndef MINI_RT_H
 # define MINI_RT_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <math.h>
-# include <fcntl.h>
 # include "./get_next_line/get_next_line.h"
 
 # define HEIGHT 1080
@@ -69,9 +65,7 @@ typedef struct s_img_data
 typedef struct s_ambient
 {
 	float	ratio;
-	int		red;
-	int		green;
-	int		blue;
+	int		color;
 }	t_ambient;
 
 typedef struct s_camera
@@ -141,7 +135,6 @@ typedef struct s_all
 }	t_all;
 
 char	**ft_split(char const *s, char c, t_all *all);
-void	free_split(char **args);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_isdigit(int c);
 int		ft_strlen(const char *s);
@@ -162,8 +155,8 @@ void	init_coord(t_vec *vec, char *value, t_all *all);
 void	init_vector(t_vec *vec, char *value, t_all *all);
 int		ft_atoi(char *str, char type, t_all *all);
 void	check_float_number(float number, char type, t_all *all);
-void	visualize(t_all *all);
 void	init_mlx(t_all *all);
+void	check_obj(t_all *all);
 
 t_vec	vec_sub(t_vec v1, t_vec v2);
 double	vec_dot(t_vec v1, t_vec v2);
@@ -179,6 +172,7 @@ double	hit_plane(t_plane *pl, t_ray *ray);
 double	hit_cylinder(t_cylinder *cy, t_ray *ray);
 void	get_closest_obj(t_all *all, t_ray *ray, t_hit *rec);
 
+int		clamp(int value);
 int		create_trgb(int t, int r, int g, int b);
 int		check_obstacle(double t, double light_dist);
 int		is_in_shadow(t_all *all, t_vec hit_p, t_vec l_dir, double dist);

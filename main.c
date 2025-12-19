@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include "./mini_rt.h"
 #include "./minilibx_linux/mlx.h"
@@ -99,6 +97,7 @@ int	main(int ac, char **av)
 	all = (t_all){0};
 	file_check(ac, av);
 	setup_arg(av[1], &all);
+	check_obj(&all);
 	setup_camera(&all);
 	init_mlx(&all);
 	visualize(&all);

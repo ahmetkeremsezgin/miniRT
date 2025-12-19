@@ -80,6 +80,7 @@ void	clean_collector(t_all *all)
 			free(temp->value);
 		free(temp);
 	}
+	get_next_line(-1);
 	all->ambient = NULL;
 	all->camera = NULL;
 	all->cylinder = NULL;
@@ -88,17 +89,4 @@ void	clean_collector(t_all *all)
 	all->sphere = NULL;
 	all->collector = NULL;
 	exit(1);
-}
-
-void	free_split(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
 }

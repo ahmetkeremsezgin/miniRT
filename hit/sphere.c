@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../mini_rt.h"
+#include <math.h>
 
 double	hit_sphere(t_sphere *sp, t_ray *ray)
 {

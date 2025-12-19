@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../mini_rt.h"
+#include <stdlib.h>
 
 static void	get_normal_color(t_hit *rec, t_vec p, t_vec *n, int *c)
 {

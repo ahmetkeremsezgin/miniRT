@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../mini_rt.h"
+#include <math.h>
 
 static void	calc_viewport_and_deltas(t_camera *cam, t_vec u, t_vec v)
 {

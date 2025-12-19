@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../mini_rt.h"
+#include <math.h>
 
 static int	check_height(t_cylinder *cy, t_ray *ray, double t)
 {

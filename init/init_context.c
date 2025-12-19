@@ -31,21 +31,19 @@ void	init_ambient(char **args, t_all *all)
 
 	if (all->ambient != NULL)
 		print_error("too many ambient size", all);
-	if (args[3] != NULL)
+	if (args[3] != NULL || args[2] == NULL)
 		print_error("invalid argument size", all);
 	all->ambient = (t_ambient *)safe_malloc(sizeof(t_ambient), all);
 	all->ambient->ratio = ft_atof(args[1], 'r', all);
 	init_rgb(rgb, args[2], all);
-	all->ambient->red = rgb[0];
-	all->ambient->green = rgb[1];
-	all->ambient->blue = rgb[2];
+	all->ambient->color = create_trgb(0, rgb[0], rgb[1], rgb[2]);
 }
 
 void	init_camera(char **args, t_all *all)
 {
 	if (all->camera != NULL)
 		print_error("too many camera definition", all);
-	if (args[4] != NULL)
+	if (args[4] != NULL || args[3] == NULL)
 		print_error("invalid camera argument size", all);
 	all->camera = (t_camera *)safe_malloc(sizeof(t_camera), all);
 	init_coord(&all->camera->origin, args[1], all);
@@ -59,7 +57,7 @@ void	init_light(char **args, t_all *all)
 
 	if (all->light != NULL)
 		print_error("too many light definition", all);
-	if (args[4] != NULL)
+	if (args[4] != NULL || args[3] == NULL)
 		print_error("invalid light argument size", all);
 	all->light = (t_light *)safe_malloc(sizeof(t_light), all);
 	init_coord(&all->light->center, args[1], all);

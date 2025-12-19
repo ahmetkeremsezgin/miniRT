@@ -16,7 +16,7 @@
 
 void	print_error(char *error, t_all *all)
 {
-	printf("error: %s\n", error);
+	printf("Error\n%s\n", error);
 	clean_collector(all);
 }
 
