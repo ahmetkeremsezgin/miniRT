@@ -21,7 +21,7 @@ int	close_window(t_all *all)
 	mlx_destroy_display(all->mlx.mlx);
 	free(all->mlx.mlx);
 	clean_collector(all);
-	exit(0);
+	return (0);
 }
 
 int	key_hook(int keycode, t_all *all)
