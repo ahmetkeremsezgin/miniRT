@@ -1,0 +1,34 @@
+# ==========================================================
+# MiniRT "The Room" (4 Duvar + Zemin + Tavan)
+# ==========================================================
+
+# Ortam Aydınlatması
+A 0.1 255,255,255
+
+# Kamera (Odanın girişinde, içeri bakıyor)
+C 0,5,18 0,0,-1 90
+
+# Işık Kaynağı (Tavana yakın, merkezde)
+L 9,8.5,5 0.7 255,255,255
+
+# --- ODA YAPISI (PLANE'LER) ---
+# Zemin (Gri)
+pl 0,0,0 0,1,0 150,150,150
+# Tavan (Beyaz)
+pl 0,10,0 0,-1,0 255,255,255
+# Arka Duvar (Mavi)
+pl 0,0,-10 0,0,1 0,100,255
+# Sol Duvar (Kırmızı)
+pl -10,0,0 1,0,0 255,0,0
+# Sağ Duvar (Yeşil)
+pl 10,0,0 -1,0,0 0,255,0
+
+# --- İÇERİDEKİ NESNELER ---
+# Merkezde büyük bir küre
+sp 0,2,0 4.0 255,255,255
+
+# Sağ köşede bir silindir
+cy 6,2,-5 1,1,1 2.0 4.0 255,255,0
+
+# Sol tarafta küçük bir küre
+sp -5,1,5 2.0 255,0,255
